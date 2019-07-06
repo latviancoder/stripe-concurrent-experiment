@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, useState } from 'react';
+import StripeCheckoutForm from './StripeCheckoutForm';
+import ErrorBoundary from './ErrorBoundary';
 
 function App() {
+  const [formVisible, setFormVisible] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={() => setFormVisible(true)}>Show Stripe checkout</button>
+
+      {formVisible && (
+        <Suspense fallback={<div>loading stripe</div>}>
+          <ErrorBoundary errorMessage="could not load stripe">
+            <StripeCheckoutForm/>
+          </ErrorBoundary>
+        </Suspense>
+      )}
     </div>
   );
 }
