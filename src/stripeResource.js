@@ -6,7 +6,10 @@ const stripeResource = unstable_createResource(() => {
     script.src = 'https://js.stripe.com/v3/';
     script.async = true;
     script.onload = () => {
-      resolve(window.Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh'));
+      // Simulate longer script loading
+      setTimeout(() => {
+        resolve(window.Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh'));
+      }, 1500);
     };
     script.onerror = () => {
       reject('could not load stripe');
